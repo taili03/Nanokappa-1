@@ -17,13 +17,6 @@ class Triangle(BaseModel, frozen=True):
 
     @computed_field
     @cached_property
-    def basis(self) -> TriVectors:
-        b1 = self.vertices[1] - self.origin
-        b2 = self.vertices[2] - self.origin
-        return np.vstack((self.normal, b1, b2))
-
-    @computed_field
-    @cached_property
     def normal(self) -> Vector3D:
         v1 = self.vertices[1] - self.origin
         v2 = self.vertices[2] - self.origin
@@ -32,7 +25,14 @@ class Triangle(BaseModel, frozen=True):
 
     @computed_field
     @cached_property
-    def plane_k(self) -> float:
+    def basis(self) -> TriVectors:
+        b1 = self.vertices[1] - self.origin
+        b2 = self.vertices[2] - self.origin
+        return np.vstack((b1, b2, self.normal))
+
+    @computed_field
+    @cached_property
+    def plane_constant(self) -> float:
         return -np.sum(self.normal * self.origin)
 
     @computed_field
@@ -53,3 +53,63 @@ class Triangle(BaseModel, frozen=True):
     def centroid(self) -> Vector3D:
         return np.mean(self.vertices, axis=0)
 
+    # SHORTNAMES
+    @computed_field
+    @cached_property
+    def v1(self) -> Vector3D:
+        return self.vertices[0, :]
+
+    @computed_field
+    @cached_property
+    def v2(self) -> Vector3D:
+        return self.vertices[1, :]
+
+    @computed_field
+    @cached_property
+    def v3(self) -> Vector3D:
+        return self.vertices[2, :]
+
+    @computed_field
+    @cached_property
+    def o(self) -> Vector3D:
+        return self.v1
+
+    @computed_field
+    @cached_property
+    def n(self) -> Vector3D:
+        return self.normal
+
+    @computed_field
+    @cached_property
+    def b(self) -> TriVectors:
+        return self.basis
+
+    @computed_field
+    @cached_property
+    def b1(self) -> TriVectors:
+        return self.basis[0, :]
+
+    @computed_field
+    @cached_property
+    def b2(self) -> TriVectors:
+        return self.basis[1, :]
+
+    @computed_field
+    @cached_property
+    def b3(self) -> TriVectors:
+        return self.basis[2, :]
+
+    @computed_field
+    @cached_property
+    def k(self) -> float:
+        return self.plane_constant
+
+    @computed_field
+    @cached_property
+    def A(self) -> float:
+        return self.area
+
+    @computed_field
+    @cached_property
+    def c(self) -> Vector3D:
+        return self.centroid
