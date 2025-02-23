@@ -63,7 +63,7 @@ class Mesh:
         
         self.n_of_vertices = self.vertices.shape[0]
         self.bounds  = np.vstack((self.vertices.min(axis = 0), self.vertices.max(axis = 0)))
-        self.extents = self.bounds.ptp(axis = 0)
+        self.extents = np.ptp(self.bounds, axis = 0)
         
         if remove_unref:
             self.remove_unref_vertices(update = False)
@@ -393,7 +393,7 @@ class Mesh:
 
                     g = np.meshgrid(xx, yy, zz)
 
-                    grid = (np.vstack(list(map(np.ravel, g))).T)*self.bounds.ptp(axis = 0)+self.bounds[0, :] # create centers
+                    grid = (np.vstack(list(map(np.ravel, g))).T)*np.ptp(self.bounds, axis = 0)+self.bounds[0, :] # create centers
                 
                     if sample_volume:
 
