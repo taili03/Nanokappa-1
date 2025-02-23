@@ -1,0 +1,8 @@
+scipy
+matplotlib
+h5py
+trimesh
+shapely
+phonopy
+imageio
+pandas

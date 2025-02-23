@@ -1,0 +1,14 @@
+--mat_folder test_material/Si/
+--hdf_file kappa-m313131.hdf5
+--poscar_file POSCAR
+--geometry cylinder
+--dimensions 20000.0 20000.0 20000.0
+--bound_pos relative 0 0.5 0.5 1 0.5 0.5
+--bound_cond T T P
+--bound_values 302 298
+--connect_pos relative 0.5 0 0.5 0.5 1 0.5 0.5 0.5 0 0.5 0.5 1
+--subvolumes slice 20 0
+--particles total 1e6
+--timestep 1
+--iterations 10000
+--results_folder test_results/test_nanowire
